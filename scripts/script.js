@@ -1,15 +1,19 @@
-
 // Функция броска костей
 function rollDice() {
     var dice1 = document.querySelector('.dice1');
     var dice2 = document.querySelector('.dice2');
 
-    // Задаем случайную длительность между 2 и 4 секундами
-    var duration = Math.floor(Math.random() * 2000) + 2000;
+    // Задаем случайную длительность между 1 и 4 секундами
+    var duration1 = Math.floor(Math.random() * 2000) + 2000;
+    var duration2;
+    
+    do {
+      duration2 = Math.floor(Math.random() * 2000) + 2000;
+    } while (duration2 == duration1);
 
     // Бросаем кости на случайную длительность
-    rollSingleDice(dice1, duration);
-    rollSingleDice(dice2, duration);
+    rollSingleDice(dice1, duration1);
+    rollSingleDice(dice2, duration2);
 }
 
 // Функция броска одной кости
