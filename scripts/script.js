@@ -75,6 +75,15 @@ function playSound(sound) {
 
 // Скрипт для отображения прелоадера
 window.onload = function () {
+        if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js')
+            .then(registration => {
+                console.log('Service Worker зарегистрирован с областью:', registration.scope);
+            })
+            .catch(error => {
+                console.error('Ошибка при регистрации Service Worker:', error);
+            });
+    }
     setTimeout(function () {
         document.getElementById("preloader_malc").style.display = "none";
     }, 600);
