@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300&display=swap" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="ico/favicon.ico" type="image/x-icon">
+    <title>Rustling Leaves helper</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <!-- Аудио для бросков кубиков-->
+    <audio id="clickSoundStart" src="audio/ui-click-start.mp3"></audio>
+    <audio id="clickSoundEnd" src="audio/ui-click-end.mp3"></audio>
+
+    <!-- Шапка страницы -->
+    <header>
+        <div class="top">
+            <h2>Rustling Leaves</h2>
+        </div>
+    </header>
+
+    <!-- Основной контент страницы -->
+    <div class="game">
+        <div class="page">
+            <h1>Roll The Dice</h1>
+
+            <!-- Контейнер для костей -->
+            <div class="dice-container hidden">
+                <div class="dice dice1"><img src="pictures/1.svg" alt="1"></div>
+                <div class="dice dice2"><img src="pictures/1.svg" alt="2"></div>
+            </div>
+
+            <!-- Кнопка для броска костей -->
+            <div class="button-container">
+                <button class="roll-dice" onclick="rollDice()">ROLL</button>
+            </div>
+
+            <!-- Описание действия кнопки -->
+            <p>Click "Roll" button to Generate more Rustling Leaves.</p>
+        </div>
+    </div>
+
+    <!-- Подвал страницы -->
+    <footer>
+        <p class="bot">@2023 Nikolas</p>
+    </footer>
+
+    <!-- Прелоадер -->
+    <div class="preloader_malc" id="preloader_malc">
+        <div>Loading...</div>
+    </div>
+
+    <!-- Скрипт для броска костей -->
+    <script src="scripts/script.js"></script>
+</body>
+</html>
