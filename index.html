@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Offline dice roller helper for the Rustling Leaves board game.">
+    <meta property="og:title" content="Rustling Leaves Helper">
+    <meta property="og:description" content="Offline dice roller helper for the Rustling Leaves board game.">
+    <meta name="theme-color" content="#EFECE2" id="themeColorMeta">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" id="appleStatusBarMeta">
+    <meta name="apple-mobile-web-app-title" content="Rustling">
+    <link rel="manifest" href="./manifest.json">
+    <link rel="icon" href="./ico/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="./ico/icon_x192.png">
+    <title>Rustling Leaves Helper</title>
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('rl_theme');
+                var theme = saved === 'dark' || saved === 'light' ? saved : 'light';
+                document.documentElement.setAttribute('data-theme', theme);
+                var meta = document.getElementById('themeColorMeta');
+                if (meta) {
+                    meta.setAttribute('content', theme === 'dark' ? '#222222' : '#EFECE2');
+                }
+                var appleMeta = document.getElementById('appleStatusBarMeta');
+                if (appleMeta) {
+                    appleMeta.setAttribute('content', theme === 'dark' ? 'black-translucent' : 'default');
+                }
+            } catch (_e) {}
+        })();
+    </script>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-inner">
+            <div class="brand">
+                <img class="brand-icon" src="./ico/icon_x48.png" alt="" width="24" height="24" aria-hidden="true">
+                <h2>Rustling Leaves</h2>
+            </div>
+            <div class="header-actions">
+                <button type="button" id="installBtn" class="icon-btn install-btn" hidden aria-label="Установить приложение" title="Установить на устройство">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M12 3v12"></path>
+                        <path d="m7 10 5 5 5-5"></path>
+                        <path d="M5 20h14"></path>
+                    </svg>
+                    <span class="install-label">Установить</span>
+                </button>
+                <button type="button" id="soundToggle" class="icon-btn" aria-label="Переключить звук" aria-pressed="true" title="Звук">
+                    <svg class="icon-on" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+                    </svg>
+                    <svg class="icon-off" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                        <line x1="22" y1="9" x2="16" y2="15"></line>
+                        <line x1="16" y1="9" x2="22" y2="15"></line>
+                    </svg>
+                </button>
+                <button type="button" id="hapticToggle" class="icon-btn" hidden aria-label="Переключить вибрацию" aria-pressed="true" title="Тактильная отдача">
+                    <svg class="icon-on" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect x="7" y="4" width="10" height="16" rx="2"></rect>
+                        <path d="M3 8v8"></path>
+                        <path d="M21 8v8"></path>
+                    </svg>
+                    <svg class="icon-off" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect x="7" y="4" width="10" height="16" rx="2"></rect>
+                        <line x1="2" y1="2" x2="22" y2="22"></line>
+                    </svg>
+                </button>
+                <button type="button" id="themeToggle" class="icon-btn" aria-label="Переключить тему" title="Сменить тему">
+                    <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path d="M12 2v2"></path>
+                        <path d="M12 20v2"></path>
+                        <path d="m4.93 4.93 1.41 1.41"></path>
+                        <path d="m17.66 17.66 1.41 1.41"></path>
+                        <path d="M2 12h2"></path>
+                        <path d="M20 12h2"></path>
+                        <path d="m6.34 17.66-1.41 1.41"></path>
+                        <path d="m19.07 4.93-1.41 1.41"></path>
+                    </svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="game">
+        <div class="page">
+            <h1>Roll The Dice</h1>
+
+            <div class="dice-container" id="diceContainer" role="region" aria-label="Игровые кубики" aria-live="polite">
+                <div class="dice dice1" id="dice1"><img id="diceImg1" src="./pictures/1.svg" alt="1"></div>
+                <div class="dice dice2" id="dice2"><img id="diceImg2" src="./pictures/2.svg" alt="2"></div>
+            </div>
+
+            <div class="button-container">
+                <button type="button" id="rollBtn" class="roll-dice">ROLL</button>
+            </div>
+
+            <p class="hint">Click "Roll" button to generate more Rustling Leaves.</p>
+        </div>
+    </main>
+
+    <footer>
+        <p class="bot">@2023 Nikolas</p>
+    </footer>
+
+    <div class="modal-backdrop" id="iosInstallModal" hidden role="dialog" aria-modal="true" aria-labelledby="iosModalTitle">
+        <div class="modal-card">
+            <h3 id="iosModalTitle">Установка на iPhone / iPad</h3>
+            <p class="modal-text">
+                1. Нажмите кнопку <strong>Поделиться</strong> на нижней панели Safari.<br>
+                2. Прокрутите вниз и выберите <strong>На экран «Домой»</strong>.<br>
+                3. Нажмите <strong>Добавить</strong> — приложение будет работать полностью без интернета.
+            </p>
+            <button type="button" id="closeIosModalBtn" class="modal-close-btn">Понятно</button>
+        </div>
+    </div>
+
+    <div class="preloader_malc" id="preloader_malc" aria-hidden="true">
+        <div>Loading...</div>
+    </div>
+
+    <script defer src="./scripts/script.js"></script>
+</body>
+</html>

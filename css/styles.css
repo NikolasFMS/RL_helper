@@ -1,0 +1,479 @@
+:root,
+[data-theme="light"] {
+    --bg-page: #F5F2EA;
+    --bg-chrome: #EFECE2;
+    --border-chrome: rgba(38, 40, 37, 0.12);
+    --text-primary: #262825;
+    --text-secondary: #5F635D;
+    --btn-bg: transparent;
+    --btn-border: #4D755D;
+    --btn-text: #2E4B3A;
+    --btn-hover-bg: rgba(77, 117, 93, 0.1);
+    --btn-hover-text: #1F3528;
+    --btn-active-bg: #4D755D;
+    --btn-active-text: #FFFFFF;
+    --icon-btn-bg: rgba(38, 40, 37, 0.06);
+    --icon-btn-hover: rgba(38, 40, 37, 0.12);
+    --icon-btn-muted: rgba(38, 40, 37, 0.38);
+    --dice-shadow: 0 12px 26px rgba(38, 40, 37, 0.16), 0 2px 6px rgba(38, 40, 37, 0.08);
+    --dice-ring: inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    --modal-bg: #FAF8F2;
+    --modal-shadow: 0 20px 50px rgba(0, 0, 0, 0.22);
+    --preloader-bg: #F5F2EA;
+    --preloader-text: #262825;
+}
+
+[data-theme="dark"] {
+    --bg-page: #222222;
+    --bg-chrome: #1E1E1E;
+    --border-chrome: rgba(255, 255, 255, 0.1);
+    --text-primary: #DCDCDC;
+    --text-secondary: #A0A0A0;
+    --btn-bg: #222222;
+    --btn-border: #888888;
+    --btn-text: #DCDCDC;
+    --btn-hover-bg: rgba(255, 255, 255, 0.08);
+    --btn-hover-text: #FFFFFF;
+    --btn-active-bg: #CCCCCC;
+    --btn-active-text: #222222;
+    --icon-btn-bg: rgba(255, 255, 255, 0.07);
+    --icon-btn-hover: rgba(255, 255, 255, 0.14);
+    --icon-btn-muted: rgba(220, 220, 220, 0.35);
+    --dice-shadow: 0 14px 30px rgba(0, 0, 0, 0.42), 0 2px 6px rgba(0, 0, 0, 0.25);
+    --dice-ring: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    --modal-bg: #2A2A2A;
+    --modal-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+    --preloader-bg: #222222;
+    --preloader-text: #CCCCCC;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
+    justify-content: space-between;
+    line-height: 140%;
+    font-weight: normal;
+    -webkit-user-select: none;
+    user-select: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+header,
+footer {
+    background-color: var(--bg-chrome);
+    border-color: var(--border-chrome);
+    width: 100%;
+    z-index: 10;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+header {
+    border-bottom: 1px solid var(--border-chrome);
+    padding: env(safe-area-inset-top, 0px) max(16px, env(safe-area-inset-right, 16px)) 0 max(16px, env(safe-area-inset-left, 16px));
+}
+
+.header-inner {
+    height: 56px;
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+.brand-icon {
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    flex-shrink: 0;
+}
+
+h2 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-width: 38px;
+    height: 38px;
+    padding: 0 9px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    background-color: var(--icon-btn-bg);
+    color: var(--text-primary);
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 500;
+    transition: background-color 0.15s ease, transform 0.1s ease, color 0.15s ease;
+}
+
+.icon-btn[hidden] {
+    display: none;
+}
+
+.icon-btn:hover {
+    background-color: var(--icon-btn-hover);
+}
+
+.icon-btn:active {
+    transform: scale(0.94);
+}
+
+.icon-btn:focus-visible,
+.roll-dice:focus-visible,
+.modal-close-btn:focus-visible {
+    outline: 2px solid #4D755D;
+    outline-offset: 2px;
+}
+
+.install-btn {
+    background-color: #4D755D;
+    color: #FFFFFF;
+    padding: 0 12px;
+}
+
+.install-btn:hover {
+    background-color: #3F634E;
+}
+
+/* Toggle icon visibility */
+.icon-btn .icon-off {
+    display: none;
+}
+
+.icon-btn[aria-pressed="false"] {
+    color: var(--icon-btn-muted);
+}
+
+.icon-btn[aria-pressed="false"] .icon-on {
+    display: none;
+}
+
+.icon-btn[aria-pressed="false"] .icon-off {
+    display: block;
+}
+
+[data-theme="light"] #themeToggle .icon-sun {
+    display: none;
+}
+
+[data-theme="light"] #themeToggle .icon-moon {
+    display: block;
+}
+
+[data-theme="dark"] #themeToggle .icon-sun {
+    display: block;
+}
+
+[data-theme="dark"] #themeToggle .icon-moon {
+    display: none;
+}
+
+.game {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+}
+
+.page {
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+h1 {
+    color: var(--text-primary);
+    font-size: clamp(1.5rem, 4.2vh, 2.1rem);
+    line-height: 1.15;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    margin: 0;
+}
+
+.dice-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(20px, 5vw, 40px);
+    margin: clamp(32px, 6.5vh, 56px) auto clamp(28px, 5vh, 44px);
+    cursor: pointer;
+}
+
+.dice {
+    width: clamp(112px, 28vw, 156px);
+    height: clamp(112px, 28vw, 156px);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--dice-shadow), var(--dice-ring);
+    transition: transform 0.14s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s ease;
+    will-change: transform;
+}
+
+.dice1 {
+    color: #DAAF56;
+    background-color: #4D755D;
+}
+
+.dice2 {
+    color: #4D755D;
+    background-color: #DAAF56;
+}
+
+.dice img {
+    width: 72%;
+    height: 72%;
+    pointer-events: none;
+    display: block;
+}
+
+.dice.is-rolling {
+    animation: dice-shake 0.16s ease-in-out infinite alternate;
+}
+
+.dice.is-landed {
+    animation: dice-land 0.26s cubic-bezier(0.22, 1.4, 0.36, 1);
+}
+
+@keyframes dice-shake {
+    0% {
+        transform: translateY(-2px) rotate(-3.5deg) scale(0.97);
+    }
+    100% {
+        transform: translateY(2px) rotate(3.5deg) scale(1.03);
+    }
+}
+
+@keyframes dice-land {
+    0% {
+        transform: scale(1.08);
+    }
+    55% {
+        transform: scale(0.95);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.button-container {
+    width: 100%;
+    padding: 8px 0 16px;
+    display: flex;
+    justify-content: center;
+}
+
+.roll-dice {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: min(300px, 82vw);
+    height: 54px;
+    padding: 0 40px;
+    border-radius: 999px;
+    border: 2px solid var(--btn-border);
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
+    font: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    transition: background-color 0.15s ease, color 0.15s ease, transform 0.1s ease, opacity 0.15s ease;
+}
+
+.roll-dice:hover:not(:disabled) {
+    background-color: var(--btn-hover-bg);
+    color: var(--btn-hover-text);
+}
+
+.roll-dice:active:not(:disabled) {
+    background-color: var(--btn-active-bg);
+    color: var(--btn-active-text);
+    transform: scale(0.97);
+}
+
+.roll-dice:disabled {
+    opacity: 0.55;
+    cursor: default;
+}
+
+.hint {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin: 4px 0 0;
+    max-width: 300px;
+}
+
+footer {
+    border-top: 1px solid var(--border-chrome);
+    text-align: center;
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+}
+
+.bot {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    margin: 0;
+}
+
+/* iOS Install Modal */
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal-backdrop[hidden] {
+    display: none;
+}
+
+.modal-card {
+    width: 100%;
+    max-width: 360px;
+    background: var(--modal-bg);
+    color: var(--text-primary);
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: var(--modal-shadow);
+    text-align: left;
+}
+
+.modal-card h3 {
+    margin: 0 0 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.modal-text {
+    margin: 0 0 20px;
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--text-secondary);
+}
+
+.modal-text strong {
+    color: var(--text-primary);
+}
+
+.modal-close-btn {
+    width: 100%;
+    height: 44px;
+    border: none;
+    border-radius: 12px;
+    background-color: #4D755D;
+    color: #FFFFFF;
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.modal-close-btn:active {
+    transform: scale(0.98);
+}
+
+/* Preloader */
+#preloader_malc {
+    position: fixed;
+    inset: 0;
+    background: var(--preloader-bg);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 0.25s ease;
+}
+
+#preloader_malc.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#preloader_malc div {
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--preloader-text);
+}
+
+@media (max-width: 420px) {
+    .install-label {
+        display: none;
+    }
+
+    .install-btn {
+        padding: 0 9px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .dice.is-rolling,
+    .dice.is-landed {
+        animation: none;
+    }
+}

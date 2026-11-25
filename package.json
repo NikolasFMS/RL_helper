@@ -1,0 +1,14 @@
+{
+  "name": "rustling-leaves-helper",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "build": "node --check server.js && node --check scripts/script.js && node --check service-worker.js && node -e \"JSON.parse(require('fs').readFileSync('manifest.json','utf8'))\"",
+    "lint": "node --check server.js && node --check scripts/script.js && node --check service-worker.js && node -e \"JSON.parse(require('fs').readFileSync('manifest.json','utf8'))\""
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
